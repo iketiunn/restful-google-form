@@ -1,62 +1,74 @@
-# TypeScript Next.js example
+# Road map
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+- [x] Short answer
+- [x] Paragraph
+- [ ] Multiple choice
+- [ ] Checkboxes
+- [ ] Dropdown
+- [ ] File upload
+- [ ] Linear scale
+- [ ] Multiple choice grid
+- [ ] Checkbox grid
+- [ ] Date
+- [ ] Time
 
-## Deploy your own
+# How to
 
-Deploy the example using [Vercel](https://vercel.com):
+1. Create a google form https://docs.google.com/forms
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/vercel/next.js/tree/canary/examples/with-typescript)
+2. Copy the form links like https://docs.google.com/forms/d/e/1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA/viewform
 
-## How to use it?
+3. Generated result like
 
-### Using `create-next-app`
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-typescript with-typescript-app
-# or
-yarn create next-app --example with-typescript with-typescript-app
+```json
+{
+  "title": "form-collect",
+  "endpoint": "https://docs.google.com/forms/d/e/1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA/formResponse",
+  "questions": [
+    {
+      "name": "name",
+      "key": "entry.1858780561"
+    },
+    {
+      "name": "content",
+      "key": "entry.865870095"
+    },
+    {
+      "name": "whatthefuck",
+      "key": "entry.93735570"
+    }
+  ]
+}
 ```
 
-### Download manually
+4. Implement your post form using these data like
 
-Download the example:
+```js
+// Nodejs
+const fetch = require("isomorphic-fetch");
+const qs = require("querystring");
+fetch(
+  "https://docs.google.com/forms/d/e/1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA/formResponse",
+  {
+    method: "post",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: qs.stringify({
+      "entry.1858780561": "ike-test",
+      "entry.865870095": "content-yo",
+      "entry.93735570": "idk",
+    }),
+  }
+).then((res) => console.log(res.status));
 
-```bash
-curl https://codeload.github.com/vercel/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/with-typescript
-cd with-typescript
+// Browser with form post
+<form action="https://docs.google.com/forms/d/e/1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA/formResponse">
+  name<input name="entry.1858780561"></input>
+  content<input name="entry.865870095"></input>
+  wth<input name="entry.93735570"></input>
+  <button type="submit">Submit</button>
+</form>;
+
+// Browser with
 ```
-
-Install it and run:
-
-```bash
-npm install
-npm run dev
-# or
-yarn
-yarn dev
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-## Notes
-
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
-
-```
-npm install --save-dev typescript
-```
-
-To enable TypeScript's features, we install the type declarations for React and Node.
-
-```
-npm install --save-dev @types/react @types/react-dom @types/node
-```
-
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
-
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
-
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
