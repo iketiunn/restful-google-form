@@ -18,13 +18,26 @@ const IndexPage = () => {
         https://docs.google.com/forms/d/e/1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA/viewform
       </pre>
       <p>or</p>
-      <pre>1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA</pre>
-      <p>for short</p>
+      <pre>
+        1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA for short
+      </pre>
+
+      <p>
+        You can create your own form{" "}
+        <a href="https://docs.google.com/forms" target="_blank">
+          here
+        </a>
+      </p>
 
       <form onSubmit={submit}>
         <input value={url} onChange={(e) => setUrl(e.currentTarget.value)} />
         <button> Send </button>
       </form>
+
+      <p>
+        ** Limited question type with <strong>Short answer</strong> and{" "}
+        <strong>Paragraph</strong> for now **
+      </p>
     </Layout>
   );
 };

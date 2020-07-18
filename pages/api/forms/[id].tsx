@@ -28,7 +28,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       body: qs.stringify(body),
     });
 
-    res.status(200).send(fetchRes.status);
+    res.status(fetchRes.status).send(fetchRes.status);
   } catch (error) {
     res.status(500).send(error.messages);
   }
