@@ -5,6 +5,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "test": "ts-node node_modules/.bin/tape lib/*.test.ts | tap-spec",
+    "test:w": "ts-node node_modules/.bin/tape-watch lib/index.test.ts -p tap-spec",
     "type-check": "tsc"
   },
   "dependencies": {
@@ -20,6 +22,10 @@
     "@types/node": "^12.12.21",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
+    "@types/tape": "^4.13.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^5.0.1",
+    "tape-watch": "^2.3.0",
     "typescript": "3.7.3"
   },
   "license": "ISC"

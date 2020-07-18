@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { getFormRestfulMeta, FormRestfulMeta, getId } from "../../lib";
+import { getFormRestfulMetaFromNet, FormRestfulMeta } from "../../lib";
 export const getServerSideProps: GetServerSideProps<{
   data: FormRestfulMeta | null;
 }> = async (context) => {
@@ -12,7 +12,7 @@ export const getServerSideProps: GetServerSideProps<{
       },
     };
   } else {
-    const data = await getFormRestfulMeta(id);
+    const data = await getFormRestfulMetaFromNet(id);
     data.endpoint = context.req.headers.host + "/api/forms/" + id;
     return {
       props: {
@@ -23,6 +23,7 @@ export const getServerSideProps: GetServerSideProps<{
 };
 
 import { InferGetServerSidePropsType } from "next";
+import Link from "next/link";
 function Forms({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -33,33 +34,55 @@ function Forms({
 
   let examplePayload: { [key: string]: string } = {};
   data.questions.forEach((q) => {
-    examplePayload[q.key] = "example " + q.name;
+    let val = "example " + q.name;
+    if (q.name === "user-agent") {
+      val = ":user-agent";
+    }
+    examplePayload[q.key] = val;
   });
 
   return (
     <>
-      <p> Form title: {data.title} </p>
-      <p> Form endpoint: {data.endpoint} </p>
+      <Link href="/">
+        <a>Back</a>
+      </Link>
+
+      <h4> Form title: </h4>
+      <p>{data.title}</p>
+      <h4>
+        Form endpoint:
+        <pre>{data.endpoint}</pre>
+      </h4>
+      <h4> Questions: </h4>
       <ul>
         {data.questions.map((q) => (
           <li key={q.key}>
-            {q.name}: {q.key}
+            {q.name}{" "}
+            {q.required && <span style={{ color: "red" }}>required</span>}
+            <ul>
+              <li> key: {q.key} </li>
+              {q.desc && <li> description: {q.desc} </li>}
+            </ul>
           </li>
         ))}
       </ul>
 
-      <p>example:</p>
+      <h4>example:</h4>
       <div style={{ width: "100%" }}>
         <pre style={{ whiteSpace: "pre-line" }}>
           curl -X POST -H 'content-type: application/json' {data.endpoint} -d '
           {JSON.stringify(examplePayload)}'
         </pre>
       </div>
+
+      <h4>util:</h4>
+      <p>
+        When you have a question named <strong>user-agent</strong>, you could
+        either send your custom string or leave the value to{" "}
+        <strong>:user-agent</strong> it will automatically filled if you POST it
+        to restful-google-form
+      </p>
     </>
   );
-
-  /** Form api indicator */
-  console.log(data);
-  return <>{JSON.stringify(data, null, 2)}</>;
 }
 export default Forms;

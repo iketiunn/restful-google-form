@@ -7,23 +7,39 @@ export function getId(url: string) {
 export function getFormEndpoint(id: string) {
   return `https://docs.google.com/forms/d/e/${id}/formResponse`;
 }
+/** util for inject user-agent */
+export function getUserAgentInputKey(obj: { [k: string]: string }) {
+  return Object.keys(obj).find((k) => obj[k] === ":user-agent");
+}
 
+interface Question {
+  name: string;
+  key: string;
+  desc: string;
+  required: boolean;
+}
 export interface FormRestfulMeta {
   title: string;
   endpoint: string;
-  questions: { name: string; key: string }[];
+  questions: Question[];
 }
-export async function getFormRestfulMeta(id: string): Promise<FormRestfulMeta> {
+
+export async function getFormRestfulMetaFromNet(id: string) {
   const html = await fetch(
     `https://docs.google.com/forms/d/e/${id}/viewform`
   ).then((res) => res.text());
 
+  return getFormRestfulMeta(html);
+}
+/**
+ * TODO:
+ *   - Get description
+ */
+export function getFormRestfulMeta(html: string): FormRestfulMeta {
   const $ = cheerio.load(html);
   // Endpoint
   const endpoint = $("form").attr("action");
   if (!endpoint) {
-    console.error(`https://docs.google.com/forms/d/e/${id}/viewform`);
-    console.error(endpoint);
     throw new Error("endpoint Prase Failed!");
   }
   // Names
@@ -38,24 +54,25 @@ export async function getFormRestfulMeta(id: string): Promise<FormRestfulMeta> {
   const script = $("script:not([src])")
     .toArray()
     .map((s) => $(s)[0].children[0].data)
-    .filter((text) => text?.includes("FB_PUBLIC_LOAD_DATA_"))[0];
+    .filter((text) => (text ? text.includes("FB_PUBLIC_LOAD_DATA_") : ""))[0];
   if (!script) throw new Error("viewform Parse Failed!");
-  const matchedQuestionKeys = script.replace(" ", "").match(/\[\[\d{2,},null/g);
-  if (!matchedQuestionKeys) throw new Error("question keys Parse Failed!");
-  const questionKeys = matchedQuestionKeys.map(
-    (k) => "entry." + k.replace(/\D/g, "")
+  const arr = JSON.parse(
+    script.replace("var FB_PUBLIC_LOAD_DATA_ = ", "").replace(";", "")
   );
-  if (questionNames.length !== questionKeys.length) {
-    throw new Error("Miss match with questions name and key!");
+  const rawQuestions = arr[1][1];
+  if (!Array.isArray(rawQuestions)) {
+    throw new Error("Fail to parse script");
   }
-
-  const questions = [];
-  for (const key in questionNames) {
-    const question = {
-      name: questionNames[key],
-      key: questionKeys[key],
+  const questions = rawQuestions.map((q) => {
+    return {
+      name: q[1],
+      desc: q[2] || "",
+      required: Boolean(q[4][0][2]), // It's simple text..
+      key: "entry." + q[4][0][0], // It's simple text..
     };
-    questions.push(question);
+  });
+  if (questionNames.length !== questions.length) {
+    throw new Error("Miss match with questions name and key!");
   }
 
   return {
