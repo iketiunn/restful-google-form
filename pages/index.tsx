@@ -31,7 +31,7 @@ const IndexPage = () => {
 
       <form onSubmit={submit}>
         <input value={url} onChange={(e) => setUrl(e.currentTarget.value)} />
-        <button> Send </button>
+        <button> Get Form Meta </button>
       </form>
 
       <p>
