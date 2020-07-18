@@ -14,7 +14,8 @@ export const getServerSideProps: GetServerSideProps<{
     };
   } else {
     const data = await getFormRestfulMetaFromNet(id);
-    data.endpoint = context.req.headers.host + "/api/forms/" + id;
+    // FIXME Hard code https for now
+    data.endpoint = "https://" + context.req.headers.host + "/api/forms/" + id;
     return {
       props: {
         data,
