@@ -21,6 +21,8 @@ will only return texted http status code, just check it with the http status and
 
 #### Supported Question type
 
+unchecked are not tested.
+
 - [x] Short answer
 - [x] Paragraph
 - [ ] Multiple choice
