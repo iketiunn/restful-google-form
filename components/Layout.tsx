@@ -17,10 +17,17 @@ const Layout = ({ children, title = "Restful Google Form" }: Props) => (
       <nav></nav>
     </header>
     {children}
-    {/* <footer>
+    <footer style={{ textAlign: "center" }}>
       <hr />
-      <span>Footer</span>
-    </footer> */}
+      <span>
+        <a
+          href="https://github.com/iketiunn/restful-google-form"
+          target="_blank"
+        >
+          Github
+        </a>
+      </span>
+    </footer>
   </div>
 );
 
