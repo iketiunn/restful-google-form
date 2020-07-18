@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import Layout from "../../components/Layout";
 import { getFormRestfulMetaFromNet, FormRestfulMeta } from "../../lib";
 export const getServerSideProps: GetServerSideProps<{
   data: FormRestfulMeta | null;
@@ -42,7 +43,7 @@ function Forms({
   });
 
   return (
-    <>
+    <Layout>
       <Link href="/">
         <a>Back</a>
       </Link>
@@ -82,7 +83,7 @@ function Forms({
         <strong>:user-agent</strong> it will automatically filled if you POST it
         to restful-google-form
       </p>
-    </>
+    </Layout>
   );
 }
 export default Forms;

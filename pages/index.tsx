@@ -5,16 +5,13 @@ import { getId } from "../lib";
 
 const IndexPage = () => {
   const router = useRouter();
-  // const [url, setUrl] = React.useState("");
-  const [url, setUrl] = React.useState(
-    "1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA"
-  );
+  const [url, setUrl] = React.useState("");
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push(`/forms/${getId(url)}`);
   };
   return (
-    <Layout title="Home | Next.js + TypeScript Example">
+    <Layout>
       <h1>Google Form ❤️ Restful</h1>
       <p>Enter your form link like:</p>
       <pre>

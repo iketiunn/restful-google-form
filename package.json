@@ -26,6 +26,7 @@
     "tap-spec": "^5.0.0",
     "tape": "^5.0.1",
     "tape-watch": "^2.3.0",
+    "ts-node": "^8.10.2",
     "typescript": "3.7.3"
   },
   "license": "ISC"
