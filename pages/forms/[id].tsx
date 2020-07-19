@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps<{
 };
 
 import { InferGetServerSidePropsType } from "next";
-import Link from "next/link";
+import CodeBlock from "../../components/CodeBlock";
 function Forms({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -42,47 +42,27 @@ function Forms({
     }
     examplePayload[q.key] = val;
   });
+  const example = `curl -X POST -H 'content-type: application/json' {data.endpoint} -d '
+  ${JSON.stringify(examplePayload)}'`;
+  const meta = JSON.stringify(data, null, 2);
 
   return (
     <Layout>
-      <Link href="/">
-        <a>Back</a>
-      </Link>
-
-      <h4> Form title: </h4>
+      <h4>Form title: </h4>
       <p>{data.title}</p>
-      <h4>
-        Form endpoint:
-        <pre>{data.endpoint}</pre>
-      </h4>
-      <h4> Questions: </h4>
-      <ul>
-        {data.questions.map((q) => (
-          <li key={q.key}>
-            {q.name}{" "}
-            {q.required && <span style={{ color: "red" }}>required</span>}
-            <ul>
-              <li> key: {q.key} </li>
-              {q.desc && <li> description: {q.desc} </li>}
-            </ul>
-          </li>
-        ))}
-      </ul>
 
-      <h4>example:</h4>
-      <div style={{ width: "100%" }}>
-        <pre style={{ whiteSpace: "pre-line" }}>
-          curl -X POST -H 'content-type: application/json' {data.endpoint} -d '
-          {JSON.stringify(examplePayload)}'
-        </pre>
-      </div>
+      <h4>Form meta:</h4>
+      <CodeBlock copyButton>{meta}</CodeBlock>
+
+      <h4>curl example:</h4>
+      <CodeBlock copyButton>{example}</CodeBlock>
 
       <h4>util:</h4>
       <p>
         When you have a question named <strong>user-agent</strong>, you could
         either send your custom string or leave the value to{" "}
-        <strong>:user-agent</strong> it will automatically filled if you POST it
-        to restful-google-form
+        <strong>:user-agent</strong> it will automatically fill for you if you
+        POST it to restful-google-form
       </p>
     </Layout>
   );

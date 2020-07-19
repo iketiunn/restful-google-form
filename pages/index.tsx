@@ -1,27 +1,19 @@
 import React from "react";
-import { useRouter } from "next/router";
 import Layout from "../components/Layout";
-import { getId } from "../lib";
+import CodeBlock from "../components/CodeBlock";
 
 const IndexPage = () => {
-  const router = useRouter();
-  const [url, setUrl] = React.useState("");
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    router.push(`/forms/${getId(url)}`);
-  };
   return (
     <Layout>
-      <h1>Google Form ❤️ Restful</h1>
+      <h4>Usage</h4>
       <p>Enter your form link like:</p>
-      <pre>
+      <CodeBlock>
         https://docs.google.com/forms/d/e/1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA/viewform
-      </pre>
-      <p>or</p>
-      <pre>
-        1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA for short
-      </pre>
-
+      </CodeBlock>
+      <p>or form id for short:</p>
+      <CodeBlock>
+        1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA
+      </CodeBlock>
       <p>
         You can create your own form{" "}
         <a href="https://docs.google.com/forms" target="_blank">
@@ -29,11 +21,7 @@ const IndexPage = () => {
         </a>
       </p>
 
-      <form onSubmit={submit}>
-        <input value={url} onChange={(e) => setUrl(e.currentTarget.value)} />
-        <button> Get Form Meta </button>
-      </form>
-
+      <h4>Caution</h4>
       <p>
         ** Limited question type with <strong>Short answer</strong> and{" "}
         <strong>Paragraph</strong> for now **
