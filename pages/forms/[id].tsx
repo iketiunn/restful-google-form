@@ -42,7 +42,9 @@ function Forms({
     }
     examplePayload[q.key] = val;
   });
-  const example = `curl -X POST -H 'content-type: application/json' {data.endpoint} -d '
+  const example = `curl -X POST -H 'content-type: application/json' ${
+    data.endpoint
+  } -d '
   ${JSON.stringify(examplePayload)}'`;
   const meta = JSON.stringify(data, null, 2);
 
