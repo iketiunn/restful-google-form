@@ -8,8 +8,6 @@ import fetch from "isomorphic-fetch";
 import qs from "querystring";
 
 /**
- * TODO:
- *
  * Get -> Will return meta
  * Post -> Will submit form
  */

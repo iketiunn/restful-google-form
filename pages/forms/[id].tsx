@@ -45,6 +45,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 
 import { InferGetServerSidePropsType } from "next";
 import CodeBlock from "../../components/CodeBlock";
+import TestForm from "../../components/TestForm";
 function Forms({
   data,
   error,
@@ -89,6 +90,18 @@ function Forms({
 
       <h4>curl example:</h4>
       <CodeBlock copyButton>{example}</CodeBlock>
+
+      <h4>
+        html example
+        <a
+          href="https://github.com/iketiunn/restful-google-form/blob/master/components/TestForm.tsx"
+          target="blank"
+        >
+          {" "}
+          source
+        </a>
+      </h4>
+      <TestForm meta={data} />
 
       <h4>util:</h4>
       <p>
