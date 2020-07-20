@@ -11,6 +11,16 @@ export function getFormEndpoint(id: string) {
 export function getUserAgentInputKey(obj: { [k: string]: string }) {
   return Object.keys(obj).find((k) => obj[k] === ":user-agent");
 }
+export function getProtocol(req: any) {
+  if (req.connection.encrypted) {
+    return "https";
+  }
+  const forwardedProto = req.headers["x-forwarded-proto"];
+  if (forwardedProto) {
+    return forwardedProto.split(/\s*,\s*/)[0];
+  }
+  return "http";
+}
 
 interface Question {
   name: string;

@@ -1,6 +1,10 @@
 import { GetServerSideProps } from "next";
 import Layout from "../../components/Layout";
-import { getFormRestfulMetaFromNet, FormRestfulMeta } from "../../lib";
+import {
+  getFormRestfulMetaFromNet,
+  FormRestfulMeta,
+  getProtocol,
+} from "../../lib";
 
 interface Props {
   data: FormRestfulMeta | null;
@@ -19,9 +23,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     try {
       const data = await getFormRestfulMetaFromNet(id);
       // FIXME Hack, maybe (property) IncomingMessage.connection: Socket should contains https types
-      const protocol = (context.req.connection as any).encrypted
-        ? "https://"
-        : "http://";
+      const protocol = getProtocol(context.req) + "://";
       data.endpoint = protocol + context.req.headers.host + "/api/forms/" + id;
       // Assign fetched data
       props = {
