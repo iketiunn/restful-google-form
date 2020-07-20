@@ -1,37 +1,64 @@
 import { GetServerSideProps } from "next";
 import Layout from "../../components/Layout";
 import { getFormRestfulMetaFromNet, FormRestfulMeta } from "../../lib";
-export const getServerSideProps: GetServerSideProps<{
+
+interface Props {
   data: FormRestfulMeta | null;
-}> = async (context) => {
+  error: "";
+}
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
   const formId = context.params?.id;
   const id = Array.isArray(formId) ? formId[0] : formId;
-  if (!id) {
-    return {
-      props: {
-        data: null,
-      },
-    };
-  } else {
-    const data = await getFormRestfulMetaFromNet(id);
-    // FIXME Hard code https for now
-    data.endpoint = "https://" + context.req.headers.host + "/api/forms/" + id;
-    return {
-      props: {
+  let props: Props = {
+    data: null,
+    error: "",
+  };
+  if (id) {
+    try {
+      const data = await getFormRestfulMetaFromNet(id);
+      // FIXME Hard code https for now
+      data.endpoint =
+        "https://" + context.req.headers.host + "/api/forms/" + id;
+      // Assign fetched data
+      props = {
+        ...props,
         data,
-      },
-    };
+      };
+    } catch (error) {
+      props = {
+        ...props,
+        error: error.message,
+      };
+    }
   }
+
+  return {
+    props,
+  };
 };
 
 import { InferGetServerSidePropsType } from "next";
 import CodeBlock from "../../components/CodeBlock";
 function Forms({
   data,
+  error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  if (error) {
+    return (
+      <Layout>
+        <h2>{error} :(</h2>
+      </Layout>
+    );
+  }
   if (!data) {
     // Fail to parse somehow
-    return <h2>Fail to parse :(</h2>;
+    return (
+      <Layout>
+        <h2>Fail to parse :(</h2>
+      </Layout>
+    );
   }
 
   let examplePayload: { [key: string]: string } = {};

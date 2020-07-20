@@ -25,9 +25,12 @@ export interface FormRestfulMeta {
 }
 
 export async function getFormRestfulMetaFromNet(id: string) {
-  const html = await fetch(
-    `https://docs.google.com/forms/d/e/${id}/viewform`
-  ).then((res) => res.text());
+  const res = await fetch(`https://docs.google.com/forms/d/e/${id}/viewform`);
+  if (res.status === 404) throw new Error(`Form: [${id}] not found!`);
+  if (!res.ok) {
+    throw new Error(`Fail to get form: [${id}]`);
+  }
+  const html = await res.text();
 
   return getFormRestfulMeta(html);
 }

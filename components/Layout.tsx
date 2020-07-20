@@ -32,6 +32,7 @@ const Layout = ({ children, title = "Restful Google Form" }: Props) => {
           </Link>
           <form onSubmit={routeToFormMeta}>
             <input
+              style={{ textIndent: "5px" }}
               value={url}
               placeholder="Form link or id"
               onChange={(e) => setUrl(e.currentTarget.value)}
