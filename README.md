@@ -4,10 +4,31 @@ link: https://restful-google-form.vercel.app/
 
 Turn your google form into restful api with ease.
 
+#### Why
+
+When you quick prototyping a form with Google Forms and you also want customizations with the form.
+
+You can have the powers with:
+
+- [x] Google Forms UI to edit your questions
+- [x] Google Forms/Sheets to view your responses
+- [x] Custom UI implement in your app
+
 #### Usage
 
-- Step1. Input your form id or url for paring the question parameters
-- Step2. Implement your own ui/logic with the form meta (you could test it with curl example)
+Enter your form link like:
+
+```
+https://docs.google.com/forms/d/e/1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA/viewform
+```
+
+or form id for short:
+
+```
+1FAIpQLSfVRcg4Oou6J05mOpmrwgdfdyfG15n4GkNFOwY3idLlRPYfGA
+```
+
+You can create your own form [here](https://docs.google.com/forms)
 
 #### Pages
 
