@@ -18,9 +18,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   if (id) {
     try {
       const data = await getFormRestfulMetaFromNet(id);
-      // FIXME Hard code https for now
-      data.endpoint =
-        "https://" + context.req.headers.host + "/api/forms/" + id;
+      // FIXME Hack, maybe (property) IncomingMessage.connection: Socket should contains https types
+      const protocol = (context.req.connection as any).encrypted
+        ? "https://"
+        : "http://";
+      data.endpoint = protocol + context.req.headers.host + "/api/forms/" + id;
       // Assign fetched data
       props = {
         ...props,
