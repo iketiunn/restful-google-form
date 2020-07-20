@@ -40,6 +40,9 @@ Get the form meta for `:formId`
 `[POST] /api/forms/:formId`
 will only return texted http status code, just check it with the http status and the form meta
 
+`[POST] /api/forms/:formId`
+return form meta in json format
+
 #### Supported Question type
 
 unchecked are not tested.
