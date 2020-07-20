@@ -45,16 +45,17 @@ export default ({ meta }: Props) => {
           if (q.name === "user-agent") val = ":user-agent";
 
           return (
-            <div key={q.key} style={{ margin: "auto" }}>
-              <label>
-                <p>{q.name + (q.required ? "*" : "")}</p>
-                <input
-                  defaultValue={val}
-                  required={q.required}
-                  name={q.key}
-                  id={q.name}
-                />
-              </label>
+            <div key={q.key}>
+              <p style={{ textAlign: "center" }}>
+                {q.name + (q.required ? "*" : "")}
+              </p>
+              <input
+                style={{ display: "block", margin: "auto" }}
+                defaultValue={val}
+                required={q.required}
+                name={q.key}
+                id={q.name}
+              />
             </div>
           );
         })}
