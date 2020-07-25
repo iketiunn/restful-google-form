@@ -74,7 +74,7 @@ export function getFormRestfulMeta(html: string): FormRestfulMeta {
     throw new Error("endpoint Prase Failed!");
   }
   // Names
-  const [title, ..._questionNames] = $('form div[role="heading"]')
+  const [title] = $('form div[role="heading"]')
     .toArray()
     .map((ele) =>
       $(ele)
