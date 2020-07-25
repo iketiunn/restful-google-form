@@ -43,6 +43,10 @@ export default ({ meta }: Props) => {
         {meta.questions.map((q) => {
           let val = "example value";
           if (q.name === "user-agent") val = ":user-agent";
+          if (q.name.endsWith("_year")) val = String(new Date().getFullYear());
+          if (q.name.endsWith("_month"))
+            val = String(new Date().getMonth() + 1);
+          if (q.name.endsWith("_day")) val = String(new Date().getDate());
 
           return (
             <div key={q.key}>

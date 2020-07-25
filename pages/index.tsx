@@ -21,10 +21,54 @@ const IndexPage = () => {
         </a>
       </p>
 
-      <h4>Caution</h4>
+      <h4>Supported question type:</h4>
       <p>
-        ** Limited question type with <strong>Short answer</strong> and{" "}
-        <strong>Paragraph</strong> for now **
+        <ul style={{ listStyle: "none", padding: 0 }}>
+          <li>
+            <input readOnly type="checkbox" checked />
+            <label>Short Answer</label>
+          </li>
+          <li>
+            <input onClick={() => false} type="checkbox" checked />
+            <label>Paragraph</label>
+          </li>
+          <li>
+            <input readOnly type="checkbox" checked={false} />
+            <label>Multiple choice</label>
+          </li>
+          <li>
+            <input readOnly type="checkbox" checked={false} />
+            <label>Checkboxes</label>
+          </li>
+          <li>
+            <input readOnly type="checkbox" checked={false} />
+            <label>Dropdown</label>
+          </li>
+          <li>
+            <input readOnly type="checkbox" checked={false} />
+            <label>File upload</label>
+          </li>
+          <li>
+            <input readOnly type="checkbox" checked={false} />
+            <label>Linear scale</label>
+          </li>
+          <li>
+            <input readOnly type="checkbox" checked={false} />
+            <label>Multiple choice grid</label>
+          </li>
+          <li>
+            <input readOnly type="checkbox" checked={false} />
+            <label>Checkbox grid</label>
+          </li>
+          <li>
+            <input readOnly type="checkbox" checked />
+            <label>Date</label>
+          </li>
+          <li>
+            <input readOnly type="checkbox" checked={false} />
+            <label>Time</label>
+          </li>
+        </ul>
       </p>
     </Layout>
   );
