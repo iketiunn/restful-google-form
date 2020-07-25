@@ -5,8 +5,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "test": "ts-node node_modules/.bin/tape lib/*.test.ts | tap-spec",
-    "test:w": "ts-node node_modules/.bin/tape-watch lib/index.test.ts -p tap-spec",
+    "test": "ts-node --project tsconfig.test.json node_modules/.bin/tape lib/*.spec.ts | tap-spec",
+    "test:w": "ts-node --project tsconfig.test.json node_modules/.bin/tape-watch lib/*.spec.ts -p tap-spec",
     "type-check": "tsc"
   },
   "dependencies": {

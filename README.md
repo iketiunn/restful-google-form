@@ -4,6 +4,10 @@ link: https://restful-google-form.vercel.app/
 
 Turn your google form into restful api with ease.
 
+#### TODO
+
+- column[3] is questions type!
+
 #### Why
 
 When you quick prototyping a form with Google Forms and you also want customizations with the form.
@@ -56,5 +60,5 @@ unchecked are not tested.
 - [ ] Linear scale
 - [ ] Multiple choice grid
 - [ ] Checkbox grid
-- [ ] Date
+- [x] Date
 - [ ] Time
