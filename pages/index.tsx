@@ -65,7 +65,7 @@ const IndexPage = () => {
             <label>Date</label>
           </li>
           <li>
-            <input readOnly type="checkbox" checked={false} />
+            <input readOnly type="checkbox" checked />
             <label>Time</label>
           </li>
         </ul>

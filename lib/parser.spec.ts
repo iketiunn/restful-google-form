@@ -65,3 +65,26 @@ test("Get meta from date", (t) => {
   ]);
   t.end();
 });
+test("Get meta from time", (t) => {
+  const html = readFileSync("./test/test.html").toString();
+  const loadData = getLoadData(html);
+  const [q] = loadData.filter((data) => data.includes("time"));
+
+  t.deepEqual(parseByType(q), [
+    {
+      name: "time_hour",
+      desc: "",
+      required: false,
+      key: "entry.12082434_hour",
+      options: [],
+    },
+    {
+      name: "time_minute",
+      desc: "",
+      required: false,
+      key: "entry.12082434_minute",
+      options: [],
+    },
+  ]);
+  t.end();
+});

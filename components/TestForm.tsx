@@ -47,6 +47,8 @@ export default ({ meta }: Props) => {
           if (q.name.endsWith("_month"))
             val = String(new Date().getMonth() + 1);
           if (q.name.endsWith("_day")) val = String(new Date().getDate());
+          if (q.name.endsWith("_hour")) val = String(new Date().getHours());
+          if (q.name.endsWith("_minute")) val = String(new Date().getMinutes());
 
           return (
             <div key={q.key}>

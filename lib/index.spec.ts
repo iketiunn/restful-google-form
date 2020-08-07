@@ -50,6 +50,20 @@ test("Get meta form html", (t) => {
         key: "entry.1567916097_day",
         options: [],
       },
+      {
+        name: "time_hour",
+        desc: "",
+        required: false,
+        key: "entry.12082434_hour",
+        options: [],
+      },
+      {
+        name: "time_minute",
+        desc: "",
+        required: false,
+        key: "entry.12082434_minute",
+        options: [],
+      },
     ],
   };
 

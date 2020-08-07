@@ -61,4 +61,4 @@ unchecked are not tested.
 - [ ] Multiple choice grid
 - [ ] Checkbox grid
 - [x] Date
-- [ ] Time
+- [x] Time
