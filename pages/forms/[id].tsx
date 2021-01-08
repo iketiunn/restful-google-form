@@ -72,6 +72,13 @@ function Forms({
     if (q.name === "user-agent") {
       val = ":user-agent";
     }
+    if (q.name.endsWith("_year")) val = String(new Date().getFullYear());
+    if (q.name.endsWith("_month"))
+      val = String(new Date().getMonth() + 1);
+    if (q.name.endsWith("_day")) val = String(new Date().getDate());
+    if (q.name.endsWith("_hour")) val = String(new Date().getHours());
+    if (q.name.endsWith("_minute")) val = String(new Date().getMinutes());
+
     examplePayload[q.key] = val;
   });
   const example = `curl -X POST -H 'content-type: application/json' ${
