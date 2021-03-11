@@ -16,6 +16,7 @@ const Layout = ({ children, title = "Restful Google Form" }: Props) => {
         <title>{title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="google-site-verification" content="PqRpKO397SvUttlexTePU251nSMxDYY_WkJxisoQZWE" />
       </Head>
       <header>
         <div
