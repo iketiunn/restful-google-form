@@ -20,7 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 async function options(_req: NextApiRequest, res: NextApiResponse) {
-  res.status(200).send("");
+  res.status(200).end();
 }
 
 async function get(req: NextApiRequest, res: NextApiResponse) {
