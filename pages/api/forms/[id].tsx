@@ -14,9 +14,14 @@ import qs from "querystring";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") return post(req, res);
   if (req.method === "GET") return get(req, res);
+  if (req.method === "OPTIONS") return options(req, res);
 
   res.status(405).send("Method Not Allowed");
 };
+
+async function options(_req: NextApiRequest, res: NextApiResponse) {
+  res.status(200);
+}
 
 async function get(req: NextApiRequest, res: NextApiResponse) {
   const id = Array.isArray(req.query.id) ? req.query.id[0] : req.query.id;
