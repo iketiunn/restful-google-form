@@ -30,7 +30,12 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
 
     res.status(200).json(data);
   } catch (error) {
-    res.status(500).send(error.messages);
+    if (error instanceof Error) {
+      res.status(500).send(error.message);
+    } else {
+      console.error(error)
+      res.status(500).send("Internal Server Error.")
+    }
   }
 }
 
@@ -55,6 +60,11 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
 
     res.status(fetchRes.status).send(fetchRes.status);
   } catch (error) {
-    res.status(500).send(error.messages);
+    if (error instanceof Error) {
+      res.status(500).send(error.message);
+    } else {
+      console.error(error)
+      res.status(500).send("Internal Server Error.")
+    }
   }
 }

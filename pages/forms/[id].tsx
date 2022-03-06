@@ -8,7 +8,7 @@ import {
 
 interface Props {
   data: FormRestfulMeta | null;
-  error: "";
+  error: string;
 }
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
@@ -31,9 +31,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
         data,
       };
     } catch (error) {
+      const errMsg = error instanceof Error ? error.message : JSON.stringify(error)
       props = {
         ...props,
-        error: error.message,
+        error: errMsg
       };
     }
   }
